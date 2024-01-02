@@ -5,11 +5,13 @@ from .forms import SignUpForm, LoginForm
 from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
 
-
+# home
 def index(request):
     return render(request, 'base.html')
 
-    
+
+@login_required
+# logout
 def custom_logout(request):
     logout(request)
     return redirect('user_login')
@@ -17,13 +19,17 @@ def custom_logout(request):
 
 
 @login_required
+# dashboard
 def dashboard(request):
     return render(request, 'dashboard.html', {'user': request.user})
 
 @login_required
+# profile
 def profile(request):
     return render(request, 'profile.html', {'user': request.user})
 
+
+# registration/sign-up
 def register(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -35,17 +41,8 @@ def register(request):
         form = SignUpForm()
     return render(request, 'register.html', {'form': form})
 
-# def user_login(request):
-#     if request.method == 'POST':
-#         form = LoginForm(request, request.POST)
-#         if form.is_valid():
-#             user = form.get_user()
-#             login(request, user)
-#             return redirect('dashboard')
-#     else:
-#         form = LoginForm()
-#     return render(request, 'login.html', {'form': form})
 
+# Login 
 class CustomLoginView(LoginView):
     authentication_form = LoginForm
     template_name = 'registration/login.html'

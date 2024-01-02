@@ -12,7 +12,7 @@ class EmailOrUsernameModelBackend(ModelBackend):
             except UserModel.DoesNotExist:
                 return None
         else:
-            # If not an email, proceed with the default behavior (username)
+            # If not an email, then consider username
             user = super().authenticate(request, username=username, password=password, **kwargs)
 
         if user and user.check_password(password):
