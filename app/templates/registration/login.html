@@ -5,12 +5,24 @@
 <div class="container">
      
       <h2>Login /  <a href="{% url 'register' %}" style="text-decoration: none">Register</a></h2>
-  <div class="row">
+    {% if form.errors %}
+      <div class="alert alert-danger">
+        {{ form.errors }}
+      </div>
+    {% endif %}
     <form method="post" action="{% url 'user_login' %}" class="form">
-      {% csrf_token %} {{ form.as_p }}
+      {% csrf_token %} 
+      <div class="form-group mb-4">
+        <label for="{{ form.username.id_for_label }}">Username or Email</label>
+        <input type="text" class="form-control custom-username-class" id="{{ form.username.id_for_label }}" placeholder="Enter your username or email" name="{{ form.username.name }}">
+    </div>
+
+    <div class="form-group mb-4">
+        <label for="{{ form.password.id_for_label }}">Password</label>
+        <input type="password" class="form-control custom-password-class" id="{{ form.password.id_for_label }}" placeholder="Enter your password" name="{{ form.password.name }}">
+    </div>
       <button type="submit" class="btn btn-primary">Login</button>
     </form>
     
-  </div>
 </div>
 {% endblock %}

@@ -35,10 +35,14 @@ def register(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
+            user.save()
+            print("valid-------")
             login(request, user)
             return redirect('dashboard')
     else:
         form = SignUpForm()
+        print("else block")
     return render(request, 'register.html', {'form': form})
 
 

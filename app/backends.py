@@ -13,8 +13,10 @@ class EmailOrUsernameModelBackend(ModelBackend):
                 return None
         else:
             # If not an email, then consider username
-            user = super().authenticate(request, username=username, password=password, **kwargs)
+            try:
+                user = UserModel.objects.get(username=username)
+            except UserModel.DoesNotExist:
+                return None
 
-        if user and user.check_password(password):
+        if user.check_password(password):
             return user
-

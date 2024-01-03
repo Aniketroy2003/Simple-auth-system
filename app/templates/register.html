@@ -3,9 +3,31 @@
 {% block content %}
   <div class="container">
     <h2>Register / <a href="{% url 'user_login' %}" style="text-decoration: none">Login</a></h2>
+    {% if form.errors %}
+      <div class="alert alert-danger">
+        {{ form.errors }}
+      </div>
+    {% endif %}
     <form method="post" action="{% url 'register' %}" class="form">
       {% csrf_token %}
-      {{ form.as_p }}
+      <div class="form-group mb-4">
+        <label for="{{ form.username.id_for_label }}">Username</label>
+        <input type="text" class="form-control custom-username-class" id="{{ form.username.id_for_label }}" placeholder="Enter your username" name="{{ form.username.name }}">
+    </div>
+    <div class="form-group mb-4">
+      <label for="{{ form.email.id_for_label }}">Email</label>
+      <input type="text" class="form-control custom-email-class" id="{{ form.email.id_for_label }}" placeholder="Enter your email" name="{{ form.email.name }}">
+  </div>
+  <div class="form-group mb-4">
+    <label for="{{ form.password1.id_for_label }}">Set Password</label>
+    <input type="password" class="form-control custom-password-class" id="{{ form.password1.id_for_label }}" placeholder="Set Password" name="{{ form.password1.name }}">
+</div>
+<div class="form-group mb-4">
+  <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+  <input type="password" class="form-control custom-confirm-password-class" id="{{ form.password2.id_for_label }}" placeholder="Repeat Password" name="{{ form.password2.name }}">
+</div>
+      
+      
       <button type="submit" class="btn btn-primary">Register</button>
     </form>
   </div>
