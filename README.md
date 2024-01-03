@@ -52,3 +52,7 @@ Run the server
 ```
 
 The development server will be hosted at http://127.0.0.1:8000/   
+
+
+
+Video Link: https://youtu.be/2F4b4Uh3R4I?si=uJWlJ4KPs6CLBSL1
